@@ -1,8 +1,11 @@
-# Chat Support Service
+
 
 <div align="center">
 
-![Chat Support Service](https://img.shields.io/badge/Chat%20Support-Service-blue?style=for-the-badge) ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge) ![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js) ![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
+# Chat Support Service
+
+![Chat Support Service](https://github.com/user-attachments/assets/63661971-9bcc-496c-bb01-78aa71968b23)
+
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript) ![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green?style=for-the-badge&logo=mongodb) ![Docker](https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker)
 
@@ -66,13 +69,12 @@ This system enables businesses to provide customer support through chat widgets 
 
 ## 📸 Screenshots
 
-> **Note**: Add screenshots of your application here for better visual appeal
 
 <div align="center">
 
 | Main Application | Admin Dashboard | Chat Widget |
 |:---:|:---:|:---:|
-| ![Main App](https://via.placeholder.com/300x200?text=Main+App+Screenshot) | ![Admin Dashboard](https://via.placeholder.com/300x200?text=Admin+Dashboard+Screenshot) | ![Chat Widget](https://via.placeholder.com/300x200?text=Chat+Widget+Screenshot) |
+| ![Main App](https://github.com/user-attachments/assets/3d06398e-1bf7-4d76-b600-f805d49741f7) | ![Admin Dashboard](https://github.com/user-attachments/assets/e7fa17dd-8ed1-4f0d-8932-36f4ee4822bd) | ![Chat Widget](https://github.com/user-attachments/assets/f71cc4ed-c260-4af0-b835-6347799c902e) |
 
 </div>
 
