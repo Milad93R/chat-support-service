@@ -225,7 +225,7 @@ chat/
 
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/yourusername/chat-support-service.git
+git clone https://github.com/Milad93R/chat-support-service.git
 cd chat-support-service
 ```
 
@@ -636,8 +636,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-[![GitHub Issues](https://img.shields.io/github/issues/yourusername/chat-support-service?style=flat-square)](https://github.com/yourusername/chat-support-service/issues)
-[![GitHub Discussions](https://img.shields.io/github/discussions/yourusername/chat-support-service?style=flat-square)](https://github.com/yourusername/chat-support-service/discussions)
+[![GitHub Issues](https://img.shields.io/github/issues/Milad93R/chat-support-service?style=flat-square)](https://github.com/Milad93R/chat-support-service/issues)
+[![GitHub Discussions](https://img.shields.io/github/discussions/Milad93R/chat-support-service?style=flat-square)](https://github.com/Milad93R/chat-support-service/discussions)
 
 </div>
 
@@ -645,8 +645,8 @@ For support and questions:
 - 📖 Check the [API documentation](http://localhost:3003/api)
 - 📋 Review the [widget README](apps/web/widget/README.md)
 - 🐳 Check [Docker setup guide](back/user-service/README.Docker.md)
-- 🐛 Report bugs via [GitHub Issues](https://github.com/yourusername/chat-support-service/issues)
-- 💬 Join discussions in [GitHub Discussions](https://github.com/yourusername/chat-support-service/discussions)
+- 🐛 Report bugs via [GitHub Issues](https://github.com/Milad93R/chat-support-service/issues)
+- 💬 Join discussions in [GitHub Discussions](https://github.com/Milad93R/chat-support-service/discussions)
 
 ### Frequently Asked Questions
 
