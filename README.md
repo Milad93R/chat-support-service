@@ -72,7 +72,7 @@ This system enables businesses to provide customer support through chat widgets 
 
 | Main Application | Admin Dashboard | Chat Widget |
 |:---:|:---:|:---:|
-| ![Main App](https://via.placeholder.com/300x200?text=Main+App+Screenshot) | ![Admin Dashboard](https://via.placeholder.com/300x200?text=Admin+Dashboard+Screenshot) | ![Chat Widget](https://via.placeholder.com/300x200?text=Chat+Widget+Screenshot) |
+| ![Main App](https://github.com/user-attachments/assets/3d06398e-1bf7-4d76-b600-f805d49741f7) | ![Admin Dashboard](https://github.com/user-attachments/assets/e7fa17dd-8ed1-4f0d-8932-36f4ee4822bd) | ![Chat Widget](https://github.com/user-attachments/assets/f71cc4ed-c260-4af0-b835-6347799c902e) |
 
 </div>
 
