@@ -1,0 +1,845 @@
+
+> web@0.1.0 dev
+> next dev --turbopack --port 3078
+
+   ▲ Next.js 15.2.4 (Turbopack)
+   - Local:        http://localhost:3078
+   - Network:      http://10.202.69.215:3078
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ✓ externalDir
+
+ ✓ Starting...
+ ✓ Ready in 1055ms
+ ○ Compiling / ...
+ ✓ Compiled / in 5.3s
+ GET / 200 in 5557ms
+ ✓ Compiled /api/landing in 488ms
+Landing API proxy error: Error: Backend request failed: 404 Not Found
+    at GET (app/api/landing/route.ts:16:12)
+  14 |
+  15 |     if (!response.ok) {
+> 16 |       throw new Error(`Backend request failed: ${response.status} ${response.statusText}`);
+     |            ^
+  17 |     }
+  18 |
+  19 |     const data = await response.json();
+ GET /api/landing 200 in 693ms
+Landing API proxy error: Error: Backend request failed: 404 Not Found
+    at GET (app/api/landing/route.ts:16:12)
+  14 |
+  15 |     if (!response.ok) {
+> 16 |       throw new Error(`Backend request failed: ${response.status} ${response.statusText}`);
+     |            ^
+  17 |     }
+  18 |
+  19 |     const data = await response.json();
+ GET /api/landing 200 in 89ms
+ ○ Compiling /api/page-view ...
+ ✓ Compiled /api/page-view in 1643ms
+ GET /dashboard 200 in 1432ms
+ ✓ Compiled /api/dashboard in 369ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 1 backtests
+Tue Jul 08 2025: 1 backtests
+📊 Generated chart: labels=Jun 9,Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=30 200 in 492ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 1 backtests
+Tue Jul 08 2025: 1 backtests
+📊 Generated chart: labels=Jun 9,Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=30 200 in 70ms
+ ○ Compiling /dashboard/performance ...
+ POST /api/page-view 200 in 5111ms
+ ✓ Compiled /dashboard/performance in 1017ms
+ GET /dashboard/performance 200 in 1054ms
+📈 Fetching performance overview data...
+ ○ Compiling /api/dashboard/performance/overview ...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 509ms
+ ✓ Compiled /api/dashboard/performance/overview in 519ms
+📊 Fetching user strategy backtests for performance dashboard...
+📈 Fetching performance overview data...
+✅ Strategy backtests fetched successfully: 1 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 586ms
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 80ms
+ POST /api/page-view 200 in 2069ms
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Strategy backtests fetched successfully: 1 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 48ms
+ ○ Compiling /dashboard/strategy ...
+ ✓ Compiled /dashboard/strategy in 946ms
+ GET /dashboard/strategy 200 in 1003ms
+ ✓ Compiled /api/dashboard/strategy in 369ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 415ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 29ms
+ ✓ Compiled /api/dashboard/strategy/ai/examples in 363ms
+ GET /api/dashboard/strategy/ai/examples 200 in 405ms
+ GET /api/dashboard/strategy/ai/examples 200 in 30ms
+ ○ Compiling /dashboard/settings ...
+ ✓ Compiled /dashboard/settings in 823ms
+ GET /dashboard/settings 200 in 864ms
+ ✓ Compiled /api/dashboard/settings in 353ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 478ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 82ms
+ ○ Compiling /dashboard/profile ...
+ ✓ Compiled /dashboard/profile in 904ms
+ GET /dashboard/profile 200 in 936ms
+ ✓ Compiled /api/dashboard/profile in 363ms
+ GET /api/dashboard/profile 200 in 404ms
+ GET /api/dashboard/profile 200 in 33ms
+ GET /api/dashboard/profile 200 in 32ms
+ GET /api/dashboard/profile 200 in 29ms
+ ○ Compiling /dashboard/support ...
+ ✓ Compiled /dashboard/support in 877ms
+ GET /dashboard/support 200 in 920ms
+ ○ Compiling /api/dashboard/support ...
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 557ms
+ ✓ Compiled /api/dashboard/support in 562ms
+ GET /api/dashboard/support/stats 200 in 633ms
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 111ms
+ GET /api/dashboard/support/stats 200 in 45ms
+ ○ Compiling /dashboard/admin ...
+ ✓ Compiled /dashboard/admin in 915ms
+ GET /dashboard/admin 200 in 950ms
+ ✓ Compiled /api/dashboard/support/admin/stats in 405ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 463ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 45ms
+ ✓ Compiled /api/dashboard/users in 395ms
+ GET /api/dashboard/users 200 in 446ms
+ GET /api/dashboard/users 200 in 39ms
+ GET /dashboard/admin 200 in 203ms
+ ○ Compiling /_not-found/page ...
+ GET /api/auth/profile 200 in 879ms
+ GET /favicon.ico 200 in 1047ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 37ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 57ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 59ms
+ GET /api/dashboard/users 200 in 62ms
+ ✓ Compiled /_not-found/page in 1317ms
+ GET /api/dashboard/users 200 in 76ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1394ms
+ GET /dashboard 200 in 34ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 1 backtests
+Tue Jul 08 2025: 1 backtests
+📊 Generated chart: labels=Jun 9,Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=30 200 in 69ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 1 backtests
+Tue Jul 08 2025: 1 backtests
+📊 Generated chart: labels=Jun 9,Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=30 200 in 65ms
+ POST /api/page-view 200 in 2145ms
+📊 Fetching dashboard overview from user service (timeframe: 60 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 60 days with 1 backtests
+Week 9: Fri Jul 04 2025 to Tue Jul 08 2025 = 1 backtests
+📊 Generated chart: labels=Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9, data=[0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=60 200 in 47ms
+📊 Fetching dashboard overview from user service (timeframe: 90 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 90 days with 1 backtests
+Week 13: Wed Jul 02 2025 to Tue Jul 08 2025 = 1 backtests
+📊 Generated chart: labels=Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13, data=[0,0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=90 200 in 56ms
+📊 Fetching dashboard overview from user service (timeframe: 180 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 180 days with 1 backtests
+July 2025: 1 backtests
+📊 Generated chart: labels=Feb,Mar,Apr,May,Jun,Jul, data=[0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=180 200 in 57ms
+📊 Fetching dashboard overview from user service (timeframe: 365 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 365 days with 1 backtests
+July 2025: 1 backtests
+📊 Generated chart: labels=Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May,Jun,Jul, data=[0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=365 200 in 59ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 1 backtests
+Tue Jul 08 2025: 1 backtests
+📊 Generated chart: labels=Jun 9,Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+ GET /api/dashboard?timeframe=30 200 in 63ms
+ GET /dashboard/strategy 200 in 37ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 35ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 34ms
+ GET /api/dashboard/strategy/ai/examples 200 in 33ms
+ GET /api/dashboard/strategy/ai/examples 200 in 31ms
+ GET /dashboard/settings 200 in 37ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 108ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 118ms
+ GET /dashboard/performance 200 in 36ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 51ms
+✅ Strategy backtests fetched successfully: 1 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 54ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 93ms
+✅ Strategy backtests fetched successfully: 1 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 96ms
+ GET /dashboard/strategy 200 in 36ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 25ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 28ms
+ GET /api/dashboard/strategy/ai/examples 200 in 28ms
+ GET /api/dashboard/strategy/ai/examples 200 in 25ms
+ ✓ Compiled /api/dashboard/strategy/ai/generate-and-backtest in 408ms
+🚀 Generating AI strategy and running backtest...
+✅ AI strategy and backtest completed successfully
+💾 Saving strategy backtest to user service...
+✅ Strategy backtest saved successfully: 686d4cc06f0bc642e21881ae
+ POST /api/dashboard/strategy/ai/generate-and-backtest 200 in 9259ms
+🚀 Generating AI strategy and running backtest...
+✅ AI strategy and backtest completed successfully
+💾 Saving strategy backtest to user service...
+✅ Strategy backtest saved successfully: 686d4cd16f0bc642e21881b0
+ POST /api/dashboard/strategy/ai/generate-and-backtest 200 in 7301ms
+🚀 Generating AI strategy and running backtest...
+✅ AI strategy and backtest completed successfully
+💾 Saving strategy backtest to user service...
+✅ Strategy backtest saved successfully: 686d4cdb6f0bc642e21881b2
+ POST /api/dashboard/strategy/ai/generate-and-backtest 200 in 6670ms
+ GET /dashboard 200 in 213ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 200ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 87ms
+ POST /api/page-view 200 in 3401ms
+ GET /dashboard/performance 200 in 44ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 97ms
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 106ms
+📊 Fetching user strategy backtests for performance dashboard...
+📈 Fetching performance overview data...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 52ms
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 58ms
+ GET /dashboard/strategy 200 in 86ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 34ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 21ms
+ GET /api/dashboard/strategy/ai/examples 200 in 70ms
+ GET /api/dashboard/strategy/ai/examples 200 in 24ms
+ GET /dashboard/settings 200 in 63ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 104ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 186ms
+ GET /dashboard/profile 200 in 66ms
+ GET /api/dashboard/profile 200 in 28ms
+ GET /api/dashboard/profile 200 in 35ms
+ GET /api/dashboard/profile 200 in 22ms
+ GET /api/dashboard/profile 200 in 24ms
+ GET /dashboard/support 200 in 50ms
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+ GET /api/dashboard/support/stats 200 in 68ms
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 80ms
+ GET /api/dashboard/support/stats 200 in 48ms
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 65ms
+ GET /dashboard/admin 200 in 35ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 32ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 30ms
+ GET /api/dashboard/users 200 in 23ms
+ GET /api/dashboard/users 200 in 27ms
+ GET /dashboard 200 in 23ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 42ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 56ms
+ GET / 200 in 27ms
+Landing API proxy error: Error: Backend request failed: 404 Not Found
+    at GET (app/api/landing/route.ts:16:12)
+  14 |
+  15 |     if (!response.ok) {
+> 16 |       throw new Error(`Backend request failed: ${response.status} ${response.statusText}`);
+     |            ^
+  17 |     }
+  18 |
+  19 |     const data = await response.json();
+ GET /api/landing 200 in 53ms
+Landing API proxy error: Error: Backend request failed: 404 Not Found
+    at GET (app/api/landing/route.ts:16:12)
+  14 |
+  15 |     if (!response.ok) {
+> 16 |       throw new Error(`Backend request failed: ${response.status} ${response.statusText}`);
+     |            ^
+  17 |     }
+  18 |
+  19 |     const data = await response.json();
+ GET /api/landing 200 in 53ms
+ POST /api/page-view 200 in 2218ms
+ POST /api/page-view 200 in 660ms
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 51ms
+ ○ Compiling /api/dashboard/support/[ticketId]/conversation ...
+ ✓ Compiled /api/dashboard/support/[ticketId]/conversation in 1644ms
+ GET /api/dashboard/support/TK375155VC/conversation 200 in 2339ms
+ GET /dashboard 200 in 49ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 52ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 45ms
+ GET /dashboard/strategy 200 in 36ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 24ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 24ms
+ GET /api/dashboard/strategy/ai/examples 200 in 18ms
+ GET /api/dashboard/strategy/ai/examples 200 in 16ms
+ POST /api/page-view 200 in 2737ms
+ GET /dashboard 200 in 38ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 62ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 49ms
+ POST /api/page-view 200 in 1866ms
+ GET /dashboard/performance 200 in 53ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 60ms
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 77ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 71ms
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 63ms
+ GET /dashboard/strategy 200 in 34ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 18ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 13ms
+ GET /api/dashboard/strategy/ai/examples 200 in 15ms
+ GET /api/dashboard/strategy/ai/examples 200 in 17ms
+ GET /dashboard/profile 200 in 27ms
+ GET /api/dashboard/profile 200 in 31ms
+ GET /api/dashboard/profile 200 in 31ms
+ GET /api/dashboard/profile 200 in 24ms
+ GET /api/dashboard/profile 200 in 21ms
+ GET /dashboard/settings 200 in 44ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 121ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 65ms
+ GET /dashboard/profile 200 in 22ms
+ GET /api/dashboard/profile 200 in 25ms
+ GET /api/dashboard/profile 200 in 41ms
+ GET /api/dashboard/profile 200 in 31ms
+ GET /api/dashboard/profile 200 in 26ms
+ GET /dashboard/strategy 200 in 23ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 17ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 19ms
+ GET /api/dashboard/strategy/ai/examples 200 in 23ms
+ GET /api/dashboard/strategy/ai/examples 200 in 24ms
+ GET /dashboard/settings 200 in 21ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 69ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 55ms
+ GET /dashboard/strategy 200 in 44ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 20ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 23ms
+ GET /api/dashboard/strategy/ai/examples 200 in 23ms
+ GET /api/dashboard/strategy/ai/examples 200 in 25ms
+ GET /dashboard/settings 200 in 34ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 68ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 74ms
+ GET /dashboard/strategy 200 in 19ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 19ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 25ms
+ GET /api/dashboard/strategy/ai/examples 200 in 25ms
+ GET /api/dashboard/strategy/ai/examples 200 in 21ms
+ GET /dashboard/performance 200 in 25ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 64ms
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 75ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 60ms
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 53ms
+ GET /dashboard/strategy 200 in 38ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 19ms
+Backend not available, using fallback data
+ GET /api/dashboard/strategy 200 in 15ms
+ GET /api/dashboard/strategy/ai/examples 200 in 18ms
+ GET /api/dashboard/strategy/ai/examples 200 in 21ms
+ GET /dashboard/performance 200 in 20ms
+📈 Fetching performance overview data...
+📊 Fetching user strategy backtests for performance dashboard...
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 42ms
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 50ms
+📊 Fetching user strategy backtests for performance dashboard...
+📈 Fetching performance overview data...
+✅ Strategy backtests fetched successfully: 4 total
+ GET /api/dashboard/performance/strategy-backtests?limit=10 200 in 49ms
+✅ Performance overview fetched successfully
+ GET /api/dashboard/performance/overview 200 in 44ms
+ GET /dashboard 200 in 25ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 46ms
+📊 Fetching dashboard overview from user service (timeframe: 30 days)...
+✅ Dashboard data fetched successfully from user service
+📊 Generating chart data for 30 days with 4 backtests
+Tue Jul 08 2025: 4 backtests
+📊 Generated chart: labels=Jun 10,Jun 11,Jun 12,Jun 13,Jun 14,Jun 15,Jun 16,Jun 17,Jun 18,Jun 19,Jun 20,Jun 21,Jun 22,Jun 23,Jun 24,Jun 25,Jun 26,Jun 27,Jun 28,Jun 29,Jun 30,Jul 1,Jul 2,Jul 3,Jul 4,Jul 5,Jul 6,Jul 7,Jul 8,Jul 9, data=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0]
+ GET /api/dashboard?timeframe=30 200 in 54ms
+ GET /dashboard/settings 200 in 42ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 46ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 67ms
+ GET /dashboard/profile 200 in 23ms
+ GET /api/dashboard/profile 200 in 21ms
+ GET /api/dashboard/profile 200 in 23ms
+ GET /api/dashboard/profile 200 in 26ms
+ GET /api/dashboard/profile 200 in 31ms
+ GET /dashboard/support 200 in 27ms
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+ GET /api/dashboard/support/stats 200 in 40ms
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 66ms
+ GET /api/dashboard/support/stats 200 in 31ms
+Fetching tickets: {
+  isAdmin: true,
+  backendUrl: 'http://localhost:3259/support/admin/tickets?page=1&limit=10'
+}
+Backend tickets response: {
+  status: 200,
+  data: { success: true, data: { tickets: [Array], pagination: [Object] } }
+}
+ GET /api/dashboard/support 200 in 44ms
+ POST /api/page-view 200 in 3102ms
+ GET /dashboard/support 200 in 39ms
+ GET /dashboard/admin 200 in 38ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 29ms
+🔍 Admin Stats API: Request received
+🔍 Admin Stats API: Auth header: Present
+🔍 Admin Stats API: Token extracted, length: 233
+🔍 Admin Stats API: JWT_SECRET exists: true
+🔍 Admin Stats API: Decoded JWT token: {
+  email: 'admin@example.com',
+  sub: '6835502fa46f84d667bbd07b',
+  roles: [ 'admin' ],
+  iat: 1751993115,
+  exp: 1752079515
+}
+🔍 Admin Stats API: decoded.role: undefined
+🔍 Admin Stats API: decoded.roles: [ 'admin' ]
+🔍 Admin Stats API: isAdmin: true
+ GET /api/dashboard/support/admin/stats 200 in 29ms
+ GET /api/dashboard/users 200 in 29ms
+ GET /api/dashboard/users 200 in 31ms
+ GET /dashboard/settings 200 in 20ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 48ms
+Backend not available, using fallback settings data
+Settings API proxy error: Error: Backend unavailable
+    at GET (app/api/dashboard/settings/route.ts:32:12)
+  30 |     } else {
+  31 |       console.log('Backend not available, using fallback settings data');
+> 32 |       throw new Error('Backend unavailable');
+     |            ^
+  33 |     }
+  34 |   } catch (error) {
+  35 |     console.error('Settings API proxy error:', error);
+ GET /api/dashboard/settings 200 in 84ms
+ GET / 200 in 46ms
+Landing API proxy error: Error: Backend request failed: 404 Not Found
+    at GET (app/api/landing/route.ts:16:12)
+  14 |
+  15 |     if (!response.ok) {
+> 16 |       throw new Error(`Backend request failed: ${response.status} ${response.statusText}`);
+     |            ^
+  17 |     }
+  18 |
+  19 |     const data = await response.json();
+ GET /api/landing 200 in 78ms
+Landing API proxy error: Error: Backend request failed: 404 Not Found
+    at GET (app/api/landing/route.ts:16:12)
+  14 |
+  15 |     if (!response.ok) {
+> 16 |       throw new Error(`Backend request failed: ${response.status} ${response.statusText}`);
+     |            ^
+  17 |     }
+  18 |
+  19 |     const data = await response.json();
+ GET /api/landing 200 in 60ms
+ POST /api/page-view 200 in 2549ms
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.2.4 (Turbopack)
+   - Local:        http://localhost:3078
+   - Network:      http://10.202.69.215:3078
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ✓ externalDir
+
+ ✓ Starting...
+ ✓ Ready in 1152ms
+   Reload env: .env
+   Reload env: .env
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.2.4 (Turbopack)
+   - Local:        http://localhost:3078
+   - Network:      http://10.202.69.215:3078
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     ✓ externalDir
+
+ ✓ Starting...
+ ✓ Ready in 832ms
+[?25h

@@ -1,0 +1,74 @@
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: chat-support-mongodb
+    restart: unless-stopped
+    ports:
+      - "27016:27017"
+    environment:
+      MONGO_INITDB_DATABASE: chat-support
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - chat-support-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  # Backend API Service (Development Mode)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: chat-support-api
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    env_file:
+      - .env.docker
+    volumes:
+      # Mount source code for hot reload
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./nest-cli.json:/app/nest-cli.json
+      - ./.env.docker:/app/.env
+      # Exclude node_modules from volume mount
+      - /app/node_modules
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - chat-support-network
+    command: npm run start:dev
+
+  # MongoDB Express (Optional - for database management)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: chat-support-mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27016
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - chat-support-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  chat-support-network:
+    driver: bridge 

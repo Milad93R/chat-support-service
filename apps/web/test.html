@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            line-height: 1.6;
+            color: #666;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .loading-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: none;
+        }
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            font-weight: bold;
+        }
+        .status-loading {
+            background: #ffc107;
+            color: #212529;
+        }
+        .status-ready {
+            background: #28a745;
+            color: white;
+        }
+        .status-error {
+            background: #dc3545;
+            color: white;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="status-indicator" class="status-indicator status-loading">Loading Widget...</div>
+    <div id="loading-indicator" class="loading-indicator">Loading...</div>
+
+    <div class="content">
+        <h1>Chat Widget Test Page</h1>
+        <p>This is a test page to demonstrate the chat widget integration. The widget should appear in the bottom-right corner.</p>
+        
+        <h2>Test Features:</h2>
+        <ul>
+            <li>Click the chat bubble to open the widget</li>
+            <li>Enter your email to start a chat session</li>
+            <li>Send messages and see real-time responses</li>
+            <li>Check unread message notifications</li>
+            <li>Test theme switching (if implemented)</li>
+        </ul>
+        
+        <h2>Test Controls:</h2>
+        <button class="test-button" onclick="clearChatData()">Clear Chat Data</button>
+        <button class="test-button" onclick="testProgrammaticInit()">Reinitialize Widget</button>
+        <button class="test-button" onclick="testConfiguration()">Test Configuration</button>
+        
+        <h2>Widget Status:</h2>
+        <div id="widget-status">Initializing...</div>
+        
+        <h2>Integration Info:</h2>
+        <p>The widget is loaded using these scripts:</p>
+        <pre><code>&lt;script src="./dist/chat-widget.js"&gt;&lt;/script&gt;</code></pre>
+        
+        <h2>Performance Info:</h2>
+        <div id="performance-info">
+            <p>Loading time: <span id="load-time">Calculating...</span></p>
+            <p>Bundle size: ~445KB</p>
+        </div>
+    </div>
+
+    <!-- Chat Widget Container -->
+    <div id="chat-widget-container"></div>
+
+    <script>
+        // Performance tracking
+        const startTime = performance.now();
+        let widgetReady = false;
+        
+        // Status indicator functions
+        function updateStatus(message, type = 'loading') {
+            const indicator = document.getElementById('status-indicator');
+            const widgetStatus = document.getElementById('widget-status');
+            
+            indicator.textContent = message;
+            indicator.className = `status-indicator status-${type}`;
+            
+            if (widgetStatus) {
+                widgetStatus.textContent = message;
+                widgetStatus.style.color = type === 'error' ? '#dc3545' : type === 'ready' ? '#28a745' : '#ffc107';
+            }
+        }
+        
+        function showLoading(show = true) {
+            const loading = document.getElementById('loading-indicator');
+            loading.style.display = show ? 'block' : 'none';
+        }
+        
+        // Update performance info
+        function updatePerformanceInfo() {
+            const loadTime = document.getElementById('load-time');
+            const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+            loadTime.textContent = `${elapsed}s`;
+        }
+        
+        // Test functions
+        function clearChatData() {
+            localStorage.removeItem('chat_client_email');
+            localStorage.removeItem('chat_client_name');
+            localStorage.removeItem('chat_room_id');
+            localStorage.removeItem('chat-widget-theme');
+            updateStatus('Chat data cleared! Refresh to reset widget.', 'ready');
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+        
+        function testProgrammaticInit() {
+            updateStatus('Reinitializing widget...', 'loading');
+            const container = document.getElementById('chat-widget-container');
+            container.innerHTML = '';
+            
+            if (window.initChatWidget) {
+                try {
+                    window.initChatWidget('chat-widget-container');
+                    updateStatus('Widget reinitialized successfully!', 'ready');
+                } catch (error) {
+                    updateStatus(`Reinitialization failed: ${error.message}`, 'error');
+                }
+            } else {
+                updateStatus('initChatWidget function not available', 'error');
+            }
+        }
+        
+        function testConfiguration() {
+            if (window.setWidgetConfig) {
+                window.setWidgetConfig({
+                    apiBaseUrl: 'http://localhost:3003',
+                    socketUrl: 'http://localhost:3003'
+                });
+                updateStatus('Configuration updated!', 'ready');
+            } else {
+                updateStatus('setWidgetConfig function not available', 'error');
+            }
+        }
+        
+        // Error handling
+        window.addEventListener('error', function(event) {
+            console.error('Script error:', event.error);
+            updateStatus(`Script error: ${event.error?.message || 'Unknown error'}`, 'error');
+            showLoading(false);
+        });
+        
+        // Monitor script loading
+        let scriptsLoaded = 0;
+        const totalScripts = 1; // Only the widget script
+        
+        function checkScriptsLoaded() {
+            scriptsLoaded++;
+            if (scriptsLoaded >= totalScripts) {
+                // Give a moment for widget to initialize
+                setTimeout(() => {
+                    if (window.initChatWidget) {
+                        updateStatus('Widget ready!', 'ready');
+                        widgetReady = true;
+                    } else {
+                        updateStatus('Widget failed to initialize', 'error');
+                    }
+                    showLoading(false);
+                    updatePerformanceInfo();
+                }, 100);
+            }
+        }
+        
+        // Page load handler
+        window.addEventListener('load', function() {
+            updatePerformanceInfo();
+            console.log('Page loaded, widget should be initialized');
+            
+            if (window.initChatWidget) {
+                console.log('initChatWidget function is available');
+                if (!widgetReady) {
+                    updateStatus('Widget ready!', 'ready');
+                    widgetReady = true;
+                }
+            } else {
+                console.log('initChatWidget function not available');
+                updateStatus('Widget not available', 'error');
+            }
+            showLoading(false);
+        });
+        
+        // Show loading initially
+        showLoading(true);
+        updateStatus('Loading widget bundle...', 'loading');
+    </script>
+    
+    <!-- Chat Widget Bundle -->
+    <script src="./dist/chat-widget.js" onload="checkScriptsLoaded()" onerror="updateStatus('Failed to load widget bundle', 'error'); showLoading(false);"></script>
+</body>
+</html> 

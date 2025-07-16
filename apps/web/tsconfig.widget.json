@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": false,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": ["dom", "dom.iterable", "es2017"],
+    "jsx": "react-jsx"
+  },
+  "include": ["widget/**/*"],
+  "exclude": ["node_modules", "dist", "app/**/*"]
+} 
