@@ -138,14 +138,12 @@ export default function LoginPage() {
               </div>
             </form>
 
-            <div className={`mt-6 text-center text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-              <p>Demo credentials:</p>
-              <p>Email: admin@example.com</p>
-              <p>Password: admin123</p>
-            </div>
+            <p className={`mt-6 text-center text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+              Demo credentials are configured through environment variables.
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}

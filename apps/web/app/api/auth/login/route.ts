@@ -1,22 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { timingSafeEqual } from 'crypto';
+import { DemoAuthConfigurationError, getDemoAuthConfig } from '../config';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'test-super-secret-key-123';
-
-// Mock admin credentials - in production, this would be from a database
-const ADMIN_CREDENTIALS = {
-  email: 'admin@example.com',
-  password: 'admin123', // In production, this would be hashed
-  id: '6835502fa46f84d667bbd07b',
-  firstName: 'Admin',
-  lastName: 'User',
-  roles: ['admin'],
-  isActive: true,
-  isEmailVerified: true,
-};
+function equalSecret(received: string, expected: string): boolean {
+  const left = Buffer.from(received);
+  const right = Buffer.from(expected);
+  return left.length === right.length && timingSafeEqual(left, right);
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const config = getDemoAuthConfig();
     const { email, password } = await request.json();
 
     if (!email || !password) {
@@ -25,29 +20,27 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Check credentials
-    if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
-      // Generate JWT token
+    if (email === config.adminEmail && equalSecret(password, config.adminPassword)) {
       const token = jwt.sign(
         {
-          email: ADMIN_CREDENTIALS.email,
-          sub: ADMIN_CREDENTIALS.id,
-          roles: ADMIN_CREDENTIALS.roles,
+          email: config.adminEmail,
+          sub: 'demo-admin',
+          roles: ['admin'],
         },
-        JWT_SECRET,
+        config.jwtSecret,
         { expiresIn: '24h' }
       );
 
       return NextResponse.json({
         access_token: token,
         user: {
-          id: ADMIN_CREDENTIALS.id,
-          email: ADMIN_CREDENTIALS.email,
-          firstName: ADMIN_CREDENTIALS.firstName,
-          lastName: ADMIN_CREDENTIALS.lastName,
-          roles: ADMIN_CREDENTIALS.roles,
-          isActive: ADMIN_CREDENTIALS.isActive,
-          isEmailVerified: ADMIN_CREDENTIALS.isEmailVerified,
+          id: 'demo-admin',
+          email: config.adminEmail,
+          firstName: 'Demo',
+          lastName: 'Administrator',
+          roles: ['admin'],
+          isActive: true,
+          isEmailVerified: true,
         },
       });
     } else {
@@ -56,9 +49,15 @@ export async function POST(request: NextRequest) {
       }, { status: 401 });
     }
   } catch (error) {
+    if (error instanceof DemoAuthConfigurationError) {
+      console.error(error.message);
+      return NextResponse.json({
+        message: 'Demo authentication is not configured',
+      }, { status: 503 });
+    }
     console.error('Login error:', error);
     return NextResponse.json({
       message: 'Internal server error',
     }, { status: 500 });
   }
-} 
+}

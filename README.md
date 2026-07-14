@@ -61,6 +61,8 @@ Start the dashboard in another terminal:
 cd apps/web
 npm ci
 JWT_SECRET=replace-this-for-local-development \
+DEMO_ADMIN_EMAIL=admin@example.com \
+DEMO_ADMIN_PASSWORD=replace-this-for-local-development \
 BACKEND_URL=http://localhost:3003 \
 NEXT_PUBLIC_API_URL=http://localhost:3003 \
 npm run dev
@@ -72,7 +74,7 @@ Open:
 - Admin view: http://localhost:3078/admin
 - API documentation: http://localhost:3003/api
 
-For the local demo login, use `admin@example.com` and `admin123`.
+Use the email and password you supplied through `DEMO_ADMIN_EMAIL` and `DEMO_ADMIN_PASSWORD`.
 
 To run the complete backend development stack instead, use:
 

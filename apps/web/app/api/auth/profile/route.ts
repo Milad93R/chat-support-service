@@ -1,22 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'test-super-secret-key-123';
-
-// Mock admin user data
-const ADMIN_USER = {
-  id: '6835502fa46f84d667bbd07b',
-  email: 'admin@example.com',
-  firstName: 'Admin',
-  lastName: 'User',
-  roles: ['admin'],
-  isActive: true,
-  isEmailVerified: true,
-  isGoogleUser: false,
-};
+import { DemoAuthConfigurationError, getDemoAuthConfig } from '../config';
 
 export async function GET(request: NextRequest) {
   try {
+    const config = getDemoAuthConfig();
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -28,12 +16,20 @@ export async function GET(request: NextRequest) {
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as any;
+      const decoded = jwt.verify(token, config.jwtSecret) as jwt.JwtPayload;
       
-      // Return user profile based on token
-      if (decoded.email === ADMIN_USER.email) {
+      if (decoded.email === config.adminEmail) {
         return NextResponse.json({
-          user: ADMIN_USER,
+          user: {
+            id: 'demo-admin',
+            email: config.adminEmail,
+            firstName: 'Demo',
+            lastName: 'Administrator',
+            roles: ['admin'],
+            isActive: true,
+            isEmailVerified: true,
+            isGoogleUser: false,
+          },
         });
       } else {
         return NextResponse.json({
@@ -46,9 +42,15 @@ export async function GET(request: NextRequest) {
       }, { status: 401 });
     }
   } catch (error) {
+    if (error instanceof DemoAuthConfigurationError) {
+      console.error(error.message);
+      return NextResponse.json({
+        message: 'Demo authentication is not configured',
+      }, { status: 503 });
+    }
     console.error('Profile error:', error);
     return NextResponse.json({
       message: 'Internal server error',
     }, { status: 500 });
   }
-} 
+}
