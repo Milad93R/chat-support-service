@@ -4,12 +4,12 @@
 
 # Chat Support Service
 
-![Chat Support Service](https://github.com/user-attachments/assets/63661971-9bcc-496c-bb01-78aa71968b23)
+[![CI](https://github.com/Milad93R/chat-support-service/actions/workflows/ci.yml/badge.svg)](https://github.com/Milad93R/chat-support-service/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+![Chat Support dashboard](https://github.com/user-attachments/assets/3d06398e-1bf7-4d76-b600-f805d49741f7)
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript) ![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green?style=for-the-badge&logo=mongodb) ![Docker](https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker)
-
-**A comprehensive real-time chat support service with embeddable widgets, admin dashboard, and backend API.**
+**A real-time support platform with an embeddable widget, operator dashboard, WebSocket messaging, and a NestJS API.**
 
 [Demo](#-demo) • [Features](#-features) • [Quick Start](#-quick-start) • [Documentation](#-api-endpoints) • [Contributing](#-contributing)
 
@@ -163,22 +163,17 @@ chat/
 
 ## 🛠 Technology Stack
 
-<div align="center">
-
 ### Frontend Stack
-[![Next.js](https://img.shields.io/badge/Next.js-15.2.4-black?logo=next.js&logoColor=white)](https://nextjs.org/) [![React](https://img.shields.io/badge/React-19.0.0-blue?logo=react&logoColor=white)](https://reactjs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) [![Framer Motion](https://img.shields.io/badge/Framer%20Motion-12.6.1-pink?logo=framer&logoColor=white)](https://www.framer.com/motion/) [![Socket.io](https://img.shields.io/badge/Socket.io-4.8.1-010101?logo=socket.io&logoColor=white)](https://socket.io/)
+Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion, and Socket.IO.
 
 ### Backend Stack
-[![NestJS](https://img.shields.io/badge/NestJS-Latest-red?logo=nestjs&logoColor=white)](https://nestjs.com/) [![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green?logo=mongodb&logoColor=white)](https://www.mongodb.com/) [![Mongoose](https://img.shields.io/badge/Mongoose-ODM-brown?logo=mongoose&logoColor=white)](https://mongoosejs.com/)
 
-[![JWT](https://img.shields.io/badge/JWT-Auth-000000?logo=json-web-tokens&logoColor=white)](https://jwt.io/) [![Swagger](https://img.shields.io/badge/Swagger-API%20Docs-85EA2D?logo=swagger&logoColor=white)](https://swagger.io/)
+NestJS, MongoDB/Mongoose, JWT/Passport, Socket.IO, and Swagger/OpenAPI.
 
 ### DevOps & Tools
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker&logoColor=white)](https://www.docker.com/) [![Webpack](https://img.shields.io/badge/Webpack-5-8DD6F9?logo=webpack&logoColor=white)](https://webpack.js.org/) [![ESLint](https://img.shields.io/badge/ESLint-Linting-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
 
-</div>
+Docker for the backend, Webpack for the standalone widget bundle, ESLint, Jest, and GitHub Actions.
 
 ### Detailed Stack Information
 
@@ -211,15 +206,7 @@ chat/
 
 ### Prerequisites
 
-<div align="center">
-
-![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green?style=flat-square&logo=mongodb)
-![Docker](https://img.shields.io/badge/Docker-Optional-blue?style=flat-square&logo=docker)
-
-</div>
-
-- Node.js 18+ 
+- Node.js 20+
 - MongoDB (local or cloud instance)
 - Docker and Docker Compose (optional)
 
@@ -636,19 +623,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-<div align="center">
-
 [![GitHub Issues](https://img.shields.io/github/issues/Milad93R/chat-support-service?style=flat-square)](https://github.com/Milad93R/chat-support-service/issues)
-[![GitHub Discussions](https://img.shields.io/github/discussions/Milad93R/chat-support-service?style=flat-square)](https://github.com/Milad93R/chat-support-service/discussions)
-
-</div>
 
 For support and questions:
 - 📖 Check the [API documentation](http://localhost:3003/api)
 - 📋 Review the [widget README](apps/web/widget/README.md)
 - 🐳 Check [Docker setup guide](back/user-service/README.Docker.md)
 - 🐛 Report bugs via [GitHub Issues](https://github.com/Milad93R/chat-support-service/issues)
-- 💬 Join discussions in [GitHub Discussions](https://github.com/Milad93R/chat-support-service/discussions)
 
 ### Frequently Asked Questions
 
@@ -669,7 +650,7 @@ Yes! The widget supports theme customization and you can modify the CSS in `apps
 <details>
 <summary>Is this production-ready?</summary>
 
-The system includes production-ready features like Docker support, security configurations, and performance optimizations. However, please review and test thoroughly before deploying to production.
+This repository is a working reference implementation. Review authentication, rate limits, persistence, observability, and deployment settings for your own threat model before using it in production.
 
 </details>
 
