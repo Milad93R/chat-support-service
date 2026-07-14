@@ -28,8 +28,9 @@ services:
     restart: unless-stopped
     ports:
       - "3003:3003"
-    env_file:
-      - .env.docker
+    environment:
+      PORT: 3003
+      MONGODB_URI: mongodb://mongodb:27017/chat-support
     volumes:
       # Mount source code for hot reload
       - ./src:/app/src
@@ -37,7 +38,6 @@ services:
       - ./package-lock.json:/app/package-lock.json
       - ./tsconfig.json:/app/tsconfig.json
       - ./nest-cli.json:/app/nest-cli.json
-      - ./.env.docker:/app/.env
       # Exclude node_modules from volume mount
       - /app/node_modules
     depends_on:
@@ -56,7 +56,7 @@ services:
       - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_PORT: 27016
+      ME_CONFIG_MONGODB_PORT: 27017
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: admin123
     depends_on:

@@ -1,673 +1,143 @@
-
-
-<div align="center">
-
 # Chat Support Service
 
 [![CI](https://github.com/Milad93R/chat-support-service/actions/workflows/ci.yml/badge.svg)](https://github.com/Milad93R/chat-support-service/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+A real-time support platform with an embeddable chat widget, an operator dashboard, and a NestJS WebSocket API. Messages, rooms, tickets, comments, read state, and notification counts are persisted in MongoDB.
+
 ![Chat Support dashboard](https://github.com/user-attachments/assets/3d06398e-1bf7-4d76-b600-f805d49741f7)
 
-**A real-time support platform with an embeddable widget, operator dashboard, WebSocket messaging, and a NestJS API.**
+## What is included
 
-[Demo](#-demo) • [Features](#-features) • [Quick Start](#-quick-start) • [Documentation](#-api-endpoints) • [Contributing](#-contributing)
+- A Next.js 15 operator dashboard and admin view
+- A standalone Webpack widget that can be embedded in another site
+- A NestJS API with REST and Socket.IO interfaces
+- Chat rooms, ticket lifecycle, comments, read receipts, and unread counts
+- MongoDB persistence through Mongoose
+- Swagger documentation at `/api`
+- A Docker Compose development stack for the API and MongoDB
 
-</div>
+The login route currently uses a fixed demo administrator in the Next.js application. It is useful for running the example locally, but it is not a production authentication implementation.
 
----
+## Architecture
 
-## 📋 Table of Contents
-
-- [Demo](#-demo)
-- [Features](#-features)
-- [Screenshots](#-screenshots)
-- [Project Structure](#-project-structure)
-- [Technology Stack](#-technology-stack)
-- [Quick Start](#-quick-start)
-- [Chat Widget System](#-chat-widget-system)
-- [Admin Dashboard](#-admin-dashboard)
-- [API Endpoints](#-api-endpoints)
-- [WebSocket Events](#-websocket-events)
-- [Docker Development](#-docker-development)
-- [Testing](#-testing)
-- [Configuration](#-configuration)
-- [Performance](#-performance)
-- [Security](#-security)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Support](#-support)
-
-## 🎯 Demo
-
-> **Live Demo**: [Coming Soon](#) | **Widget Demo**: Open `apps/web/dist/demo.html` after building
-
-This system enables businesses to provide customer support through chat widgets embedded on their websites, with real-time messaging, ticket management, and admin oversight.
-
-## 🚀 Features
-
-### 🎨 Core Features
-- **Real-time Chat**: WebSocket-powered instant messaging between clients and support agents
-- **Embeddable Widget**: Standalone chat widget that can be embedded on any website
-- **Admin Dashboard**: Comprehensive interface for managing chat rooms, tickets, and support operations
-- **Ticket Management**: Automatic ticket creation from chat conversations with full lifecycle management
-- **Dual Widget System**: Both integrated and standalone widget options
-- **Theme Support**: Dark/light theme switching with system preference detection
-- **Persistent Sessions**: Chat history and user data preserved across sessions
-- **Notification System**: Real-time notifications for new messages and unread counts
-- **CORS Support**: Configured for cross-origin requests including file:// protocol
-
-### ⚡ Advanced Features
-- **Anonymous Chat**: Clients can start conversations without registration
-- **Agent Assignment**: Automatic or manual assignment of support agents to chat rooms
-- **Chat History**: Full conversation history with search and filtering
-- **Status Management**: Room status tracking (waiting, active, closed)
-- **Message Read Receipts**: Track read/unread status for both clients and agents
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Bundle Optimization**: ~447KB minified widget with tree shaking and code splitting
-
-## 📸 Screenshots
-
-
-<div align="center">
-
-| Main Application | Admin Dashboard | Chat Widget |
-|:---:|:---:|:---:|
-| ![Main App](https://github.com/user-attachments/assets/3d06398e-1bf7-4d76-b600-f805d49741f7) | ![Admin Dashboard](https://github.com/user-attachments/assets/e7fa17dd-8ed1-4f0d-8932-36f4ee4822bd) | ![Chat Widget](https://github.com/user-attachments/assets/f71cc4ed-c260-4af0-b835-6347799c902e) |
-
-</div>
-
-## 📁 Project Structure
-
-<details>
-<summary>Click to expand project structure</summary>
-
-```
-chat/
-├── apps/
-│   └── web/                           # Next.js Frontend Application
-│       ├── app/
-│       │   ├── components/            # React Components
-│       │   │   ├── ChatWidget.tsx           # Integrated chat widget
-│       │   │   ├── ChatWidgetSelector.tsx   # Widget type selector
-│       │   │   ├── Header.tsx               # Navigation header
-│       │   │   ├── Footer.tsx               # Footer component
-│       │   │   └── ThemeToggle.tsx          # Theme switching
-│       │   ├── admin/                 # Admin Dashboard
-│       │   │   └── page.tsx                 # Admin panel for chat management
-│       │   ├── api/                   # Next.js API Routes
-│       │   │   ├── auth/                    # Authentication endpoints
-│       │   │   ├── chat-rooms/              # Chat room management
-│       │   │   └── dashboard/               # Dashboard APIs
-│       │   ├── context/               # React Contexts
-│       │   │   ├── AuthContext.tsx          # Authentication state
-│       │   │   └── ThemeContext.tsx         # Theme management
-│       │   ├── hooks/                 # Custom React Hooks
-│       │   │   ├── useWebSocket.ts          # WebSocket connection
-│       │   │   └── usePageData.ts           # Page data management
-│       │   ├── login/                 # Login page
-│       │   ├── layout.tsx             # Root layout
-│       │   └── page.tsx               # Home page
-│       ├── widget/                    # Standalone Chat Widget
-│       │   ├── components/            # Widget-specific components
-│       │   │   ├── ChatHeader.tsx           # Widget header
-│       │   │   ├── ChatFooter.tsx           # Widget footer
-│       │   │   ├── MessageInput.tsx         # Message input component
-│       │   │   ├── MessageDisplay.tsx       # Message display
-│       │   │   ├── EmailInputForm.tsx       # Email input form
-│       │   │   └── ChatToggleButton.tsx     # Widget toggle button
-│       │   ├── contexts/              # Widget contexts
-│       │   │   └── ThemeProvider.tsx        # Widget theme provider
-│       │   ├── hooks/                 # Widget hooks
-│       │   │   └── useWebSocket.ts          # Widget WebSocket hook
-│       │   ├── types/                 # TypeScript types
-│       │   ├── config/                # Widget configuration
-│       │   ├── utils/                 # Utility functions
-│       │   ├── StandaloneChatWidget.tsx     # Main standalone widget
-│       │   ├── index.tsx              # Widget entry point
-│       │   ├── styles.css             # Widget styles
-│       │   └── demo.html              # Widget demo page
-│       ├── scripts/                   # Build scripts
-│       │   └── set-chat-widget.js           # Widget type switcher
-│       ├── dist/                      # Built widget files
-│       ├── test.html                  # Widget test page
-│       ├── webpack.config.js          # Widget build configuration
-│       └── package.json               # Dependencies and scripts
-└── back/
-    └── user-service/                  # NestJS Backend Service
-        ├── src/
-        │   ├── support/               # Support System Module
-        │   │   ├── schemas/           # MongoDB Schemas
-        │   │   │   ├── chat-room.schema.ts  # Chat room data model
-        │   │   │   ├── ticket.schema.ts     # Support ticket model
-        │   │   │   └── comment.schema.ts    # Comment model
-        │   │   ├── dto/               # Data Transfer Objects
-        │   │   │   ├── chat-room.dto.ts     # Chat room DTOs
-        │   │   │   └── create-ticket.dto.ts # Ticket creation DTOs
-        │   │   ├── support.controller.ts    # Support API endpoints
-        │   │   ├── support.service.ts       # Support business logic
-        │   │   ├── chat-room.controller.ts  # Chat room endpoints
-        │   │   ├── chat-room.service.ts     # Chat room business logic
-        │   │   ├── chat.gateway.ts          # WebSocket gateway
-        │   │   └── support.module.ts        # Support module definition
-        │   ├── app.module.ts          # Main application module
-        │   └── main.ts                # Application bootstrap
-        ├── docker-compose.yml         # Docker development setup
-        ├── Dockerfile                 # Production Docker image
-        ├── Dockerfile.dev             # Development Docker image
-        └── package.json               # Backend dependencies
+```text
+browser / embedded widget
+        |
+        | REST + Socket.IO
+        v
+Next.js dashboard (3078) ----> NestJS API (3003) ----> MongoDB
 ```
 
-</details>
+The repository is split into two independently installable applications:
 
-## 🛠 Technology Stack
+```text
+apps/web/                 Next.js dashboard and standalone widget
+back/user-service/        NestJS REST/WebSocket service
+```
 
-### Frontend Stack
+## Run locally
 
-Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion, and Socket.IO.
+Requirements: Node.js 20 or newer, npm, and Docker.
 
-### Backend Stack
+Start MongoDB:
 
-NestJS, MongoDB/Mongoose, JWT/Passport, Socket.IO, and Swagger/OpenAPI.
-
-### DevOps & Tools
-
-Docker for the backend, Webpack for the standalone widget bundle, ESLint, Jest, and GitHub Actions.
-
-### Detailed Stack Information
-
-**Frontend (Next.js Application)**
-- **Framework**: Next.js 15.2.4 with App Router
-- **Runtime**: React 19.0.0
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS 4
-- **Animations**: Framer Motion 12.6.1
-- **WebSocket**: Socket.io-client 4.8.1
-- **Authentication**: JSON Web Tokens (JWT)
-- **Build Tool**: Webpack 5 (for widget bundling)
-
-**Backend (NestJS Service)**
-- **Framework**: NestJS (Node.js)
-- **Database**: MongoDB with Mongoose ODM
-- **WebSocket**: Socket.io with NestJS Gateway
-- **Authentication**: JWT with Passport
-- **API Documentation**: Swagger/OpenAPI
-- **Validation**: Class-validator and Class-transformer
-- **Environment**: Docker with Docker Compose
-
-**Widget System**
-- **Bundler**: Webpack 5 with UMD output
-- **Styling**: CSS with PostCSS
-- **Isolation**: Scoped styles with CSS containment
-- **Distribution**: Self-contained JavaScript bundle
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 20+
-- MongoDB (local or cloud instance)
-- Docker and Docker Compose (optional)
-
-### Installation
-
-1. **Clone the repository**:
 ```bash
-git clone https://github.com/Milad93R/chat-support-service.git
-cd chat-support-service
-```
-
-2. **Install dependencies**:
-```bash
-# Frontend
-cd apps/web
-npm install
-
-# Backend
-cd ../../back/user-service
-npm install
-```
-
-3. **Environment Configuration**:
-
-**Frontend** (`apps/web/.env.local`):
-```env
-NEXT_PUBLIC_AUTH_API_URL=http://localhost:3003
-BACKEND_URL=http://localhost:3003
-JWT_SECRET=your-super-secret-jwt-key-here
-
-# Chat Widget Configuration
-NEXT_PUBLIC_CHAT_WIDGET_TYPE=standalone
-```
-
-**Backend** (`back/user-service/.env`):
-```env
-MONGODB_URI=mongodb://localhost:27017/chat-support
-PORT=3003
-NODE_ENV=development
-```
-
-4. **Start the services**:
-
-**Option A: Using Docker (Recommended)**
-```bash
-# Start backend services
 cd back/user-service
-docker compose up -d
-
-# Start frontend
-cd ../../apps/web
-npm run dev
+docker compose up -d mongodb
 ```
 
-**Option B: Local Development**
-```bash
-# Start MongoDB locally
-mongod
+Start the API:
 
-# Start backend
+```bash
 cd back/user-service
-npm run start:dev
-
-# Start frontend
-cd ../../apps/web
-npm run dev
+npm ci
+MONGODB_URI=mongodb://localhost:27016/chat-support npm run start:dev
 ```
 
-5. **Access the application**:
-- **Frontend**: http://localhost:3078
-- **Admin Dashboard**: http://localhost:3078/admin
-- **API Documentation**: http://localhost:3003/api
-- **MongoDB Express**: http://localhost:8081 (admin/admin123)
-
-## 🔧 Chat Widget System
-
-### Widget Types
-
-The application supports two widget implementations:
-
-#### 1. Integrated Widget (`ChatWidget.tsx`)
-- Fully integrated with the Next.js application
-- Uses app's theme system and authentication context
-- Best for applications where the widget should match the app's design
-- Requires the full Next.js application context
-
-#### 2. Standalone Widget (`StandaloneChatWidget.tsx`)
-- Self-contained widget with its own theme system
-- Can be embedded in any website without dependencies
-- Includes all necessary React components bundled
-- Best for third-party integrations and distribution
-
-### Switching Widget Types
-
-**Using NPM Scripts (Recommended)**:
-```bash
-# Switch to integrated widget
-npm run widget:integrated
-
-# Switch to standalone widget
-npm run widget:standalone
-
-# Show help and current widget type
-npm run widget:help
-```
-
-**Manual Configuration**:
-Update `.env.local`:
-```env
-NEXT_PUBLIC_CHAT_WIDGET_TYPE=integrated  # or 'standalone'
-```
-
-### Building the Standalone Widget
+Start the dashboard in another terminal:
 
 ```bash
 cd apps/web
+npm ci
+JWT_SECRET=replace-this-for-local-development \
+BACKEND_URL=http://localhost:3003 \
+NEXT_PUBLIC_API_URL=http://localhost:3003 \
+npm run dev
+```
+
+Open:
+
+- Dashboard: http://localhost:3078
+- Admin view: http://localhost:3078/admin
+- API documentation: http://localhost:3003/api
+
+For the local demo login, use `admin@example.com` and `admin123`.
+
+To run the complete backend development stack instead, use:
+
+```bash
+cd back/user-service
+docker compose up --build
+```
+
+## Build the embedded widget
+
+```bash
+cd apps/web
+npm ci
 npm run build:widget
 ```
 
-This creates:
-- `dist/chat-widget.js` - The standalone widget bundle
-- `dist/demo.html` - Demo page with usage examples
+The bundle is written to `apps/web/dist`. A host page can configure it with data attributes:
 
-### Embedding the Widget
-
-**Simple HTML Integration**:
 ```html
-<div id="chat-widget-container" 
-     data-api-base-url="http://localhost:3003"
-     data-socket-url="http://localhost:3003"></div>
-<script src="path/to/chat-widget.js"></script>
+<div
+  id="chat-widget"
+  data-api-base-url="https://api.example.com"
+  data-socket-url="https://api.example.com">
+</div>
+<script src="/chat-widget.js"></script>
 ```
 
-**Programmatic Integration**:
-```javascript
-window.initChatWidget({
-  apiBaseUrl: 'https://your-api-server.com',
-  socketUrl: 'https://your-socket-server.com',
-  containerId: 'my-chat-widget'
-});
-```
+See [the widget guide](apps/web/widget/README.md) for configuration and integration details.
 
-## 📊 Admin Dashboard
+## Main API areas
 
-### Features
-- **Chat Room Management**: View and manage all active chat rooms
-- **Real-time Messaging**: Send and receive messages in real-time
-- **Room Assignment**: Assign agents to specific chat rooms
-- **Status Management**: Update room status (waiting, active, closed)
-- **Message History**: View complete conversation history
-- **Notification System**: Real-time notifications for new messages
-- **Statistics**: View support metrics and performance data
+| Area | Examples |
+| --- | --- |
+| Rooms | `POST /chat-rooms`, `GET /chat-rooms/:roomId` |
+| Messages | `POST /chat-rooms/:roomId/messages` |
+| Notifications | `GET /chat-rooms/notifications/counts` |
+| Tickets | `POST /support/tickets`, `GET /support/tickets/:ticketId` |
+| Comments | `POST /support/tickets/:ticketId/comments` |
+| Operations | `GET /support/admin/stats` |
 
-### Access
-- **URL**: http://localhost:3078/admin
-- **Default Credentials**:
-  - Email: `admin@example.com`
-  - Password: `admin123`
+The WebSocket gateway supports room membership, agent registration, message delivery, read state, notification counts, and room-status changes. The source of truth is [`chat.gateway.ts`](back/user-service/src/support/chat.gateway.ts).
 
-### Admin Features
-- View all chat rooms with filtering and sorting
-- Join chat rooms to assist clients
-- Send messages as support agent
-- Mark messages as read
-- Close chat rooms
-- View chat statistics
+## Verification
 
-## 🌐 API Endpoints
+Run the same checks used in CI:
 
-<details>
-<summary>Click to expand API documentation</summary>
-
-### Authentication
-- `POST /api/auth/login` - Admin login
-- `GET /api/auth/profile` - Get user profile
-
-### Chat Rooms
-- `GET /api/chat-rooms` - Get all chat rooms
-- `POST /api/chat-rooms` - Create new chat room
-- `GET /api/chat-rooms/:roomId` - Get specific room
-- `PUT /api/chat-rooms/:roomId` - Update room
-- `DELETE /api/chat-rooms/:roomId` - Delete room
-- `POST /api/chat-rooms/:roomId/messages` - Send message
-- `PUT /api/chat-rooms/:roomId/messages/read` - Mark as read
-- `GET /api/chat-rooms/:roomId/unread-count` - Get unread count
-
-### Support Tickets
-- `GET /api/dashboard/support` - Get support tickets
-- `POST /api/dashboard/support` - Create support ticket
-- `PUT /api/dashboard/support` - Update support ticket
-- `GET /api/dashboard/support/stats` - Get support statistics
-
-### Client-specific
-- `GET /api/chat-rooms/client/:clientEmail` - Get client's chat room
-- `GET /api/chat-rooms/notifications/counts` - Get notification counts
-
-</details>
-
-## 🔌 WebSocket Events
-
-<details>
-<summary>Click to expand WebSocket documentation</summary>
-
-### Client Events
-- `join-room` - Join a chat room
-- `leave-room` - Leave a chat room
-- `send-message` - Send a message
-- `mark-messages-read` - Mark messages as read
-- `get-notification-counts` - Get notification counts
-
-### Server Events
-- `new-message` - New message received
-- `room-joined` - Successfully joined room
-- `room-left` - Successfully left room
-- `notification-counts` - Updated notification counts
-- `room-list-update` - Room list updated
-- `error` - Error occurred
-
-</details>
-
-## 🐳 Docker Development
-
-### Backend Services
 ```bash
-cd back/user-service
-docker compose up -d
-```
-
-This starts:
-- **MongoDB**: Database server (port 27017)
-- **API Service**: NestJS backend (port 3003)
-- **Mongo Express**: Database management UI (port 8081)
-
-### Docker Commands
-```bash
-# Start all services
-docker compose up -d
-
-# View logs
-docker compose logs -f
-
-# Stop services
-docker compose down
-
-# Rebuild and restart
-docker compose up --build -d
-
-# Clean up everything
-docker compose down -v
-```
-
-## 🧪 Testing
-
-### Widget Testing
-```bash
-# Build the widget
-npm run build:widget
-
-# Open test page
-open apps/web/test.html
-```
-
-### API Testing
-The backend includes Swagger documentation at:
-- http://localhost:3003/api
-
-### Manual Testing
-1. Open the main application: http://localhost:3078
-2. Click the chat widget to start a conversation
-3. Open admin dashboard: http://localhost:3078/admin
-4. Login with admin credentials
-5. View the chat room and respond to messages
-
-## 🔧 Configuration
-
-### Environment Variables
-
-**Frontend Configuration**:
-```env
-NEXT_PUBLIC_AUTH_API_URL=http://localhost:3003
-BACKEND_URL=http://localhost:3003
-JWT_SECRET=your-jwt-secret
-NEXT_PUBLIC_CHAT_WIDGET_TYPE=standalone
-```
-
-**Backend Configuration**:
-```env
-MONGODB_URI=mongodb://localhost:27017/chat-support
-PORT=3003
-NODE_ENV=development
-```
-
-### Widget Configuration
-The standalone widget can be configured via:
-- HTML data attributes
-- JavaScript initialization parameters
-- Environment variables (for integrated widget)
-
-### CORS Configuration
-The backend is configured to handle CORS for:
-- Development origins (localhost ports)
-- File protocol (`file://`) for standalone widget testing
-- Custom origins (configurable)
-
-## 📈 Performance
-
-### Widget Bundle Size
-- **Standalone Widget**: ~447KB minified
-- **Includes**: React, Socket.io, all dependencies
-- **Optimization**: Tree shaking, code splitting, minification
-
-### Database Performance
-- **MongoDB**: Indexed queries for chat rooms and messages
-- **WebSocket**: Efficient real-time updates
-- **Caching**: Message history and user sessions
-
-## 🔒 Security
-
-### Authentication
-- JWT-based authentication for admin users
-- Session persistence in localStorage
-- Token expiration handling
-
-### CORS Security
-- Configured allowed origins
-- Credential support for authenticated requests
-- Protection against unauthorized access
-
-### Data Validation
-- Input validation on all API endpoints
-- TypeScript type safety
-- MongoDB schema validation
-
-## 🚀 Deployment
-
-### Production Build
-```bash
-# Frontend
 cd apps/web
+npm ci
 npm run build
-npm start
 
-# Backend
-cd back/user-service
+cd ../../back/user-service
+npm ci
 npm run build
-npm run start:prod
-
-# Widget
-cd apps/web
-npm run build:widget
+npm test -- --runInBand
 ```
 
-### Docker Production
-```bash
-# Backend
-cd back/user-service
-docker build -t chat-support-api .
-docker run -p 3003:3003 chat-support-api
+Both applications currently report zero runtime dependency advisories with `npm audit --omit=dev`.
 
-# Frontend
-cd apps/web
-docker build -t chat-support-web .
-docker run -p 3078:3078 chat-support-web
-```
+## Screenshots
 
-### Environment Setup
-1. Set up MongoDB instance
-2. Configure environment variables
-3. Build and deploy services
-4. Set up reverse proxy (nginx)
-5. Configure SSL certificates
+| Main application | Admin dashboard | Widget |
+| --- | --- | --- |
+| ![Main application](https://github.com/user-attachments/assets/3d06398e-1bf7-4d76-b600-f805d49741f7) | ![Admin dashboard](https://github.com/user-attachments/assets/e7fa17dd-8ed1-4f0d-8932-36f4ee4822bd) | ![Chat widget](https://github.com/user-attachments/assets/f71cc4ed-c260-4af0-b835-6347799c902e) |
 
-## 🤝 Contributing
+## License
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. **Fork the repository**
-2. **Create a feature branch**:
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Add tests** if applicable
-5. **Commit your changes**:
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
-6. **Push to the branch**:
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. **Open a Pull Request**
-
-### Code Style
-
-- Follow TypeScript best practices
-- Use ESLint and Prettier for code formatting
-- Write meaningful commit messages
-- Add JSDoc comments for complex functions
-- Follow the existing project structure
-
-### Issues and Bug Reports
-
-- Use GitHub Issues for bug reports and feature requests
-- Provide detailed reproduction steps
-- Include system information and logs
-- Check existing issues before creating new ones
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-[![GitHub Issues](https://img.shields.io/github/issues/Milad93R/chat-support-service?style=flat-square)](https://github.com/Milad93R/chat-support-service/issues)
-
-For support and questions:
-- 📖 Check the [API documentation](http://localhost:3003/api)
-- 📋 Review the [widget README](apps/web/widget/README.md)
-- 🐳 Check [Docker setup guide](back/user-service/README.Docker.md)
-- 🐛 Report bugs via [GitHub Issues](https://github.com/Milad93R/chat-support-service/issues)
-
-### Frequently Asked Questions
-
-<details>
-<summary>How do I embed the widget on my website?</summary>
-
-See the [Chat Widget System](#-chat-widget-system) section for detailed instructions on embedding the standalone widget.
-
-</details>
-
-<details>
-<summary>Can I customize the widget appearance?</summary>
-
-Yes! The widget supports theme customization and you can modify the CSS in `apps/web/widget/styles.css`.
-
-</details>
-
-<details>
-<summary>Is this production-ready?</summary>
-
-This repository is a working reference implementation. Review authentication, rate limits, persistence, observability, and deployment settings for your own threat model before using it in production.
-
-</details>
-
-## 🔄 Recent Changes
-
-- **Widget System**: Dual widget support (integrated/standalone)
-- **CORS Support**: Enhanced CORS for file:// protocol
-- **Bundle Optimization**: Improved webpack configuration
-- **Admin Dashboard**: Real-time chat management interface
-- **WebSocket Gateway**: Enhanced real-time communication
-- **Docker Support**: Complete containerized development environment
-
----
-
-<div align="center">
-
-
-⭐ Star this repository if you find it helpful!
-
-</div> 
+MIT. See [LICENSE](LICENSE).
