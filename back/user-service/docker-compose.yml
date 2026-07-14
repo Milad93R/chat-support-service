@@ -71,4 +71,4 @@ volumes:
 
 networks:
   chat-support-network:
-    driver: bridge 
+    driver: bridge
