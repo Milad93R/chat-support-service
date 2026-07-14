@@ -1,19 +1,5 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /apps/web
-    schedule:
-      interval: weekly
-    groups:
-      web-dependencies:
-        patterns: ["*"]
-  - package-ecosystem: npm
-    directory: /back/user-service
-    schedule:
-      interval: weekly
-    groups:
-      api-dependencies:
-        patterns: ["*"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
