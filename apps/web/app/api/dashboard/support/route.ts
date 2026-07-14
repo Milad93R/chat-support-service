@@ -142,15 +142,15 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { ticketId, ...updateData } = body;
 
-    if (!ticketId) {
+    if (typeof ticketId !== 'string' || !/^[A-Za-z0-9_-]{1,64}$/.test(ticketId)) {
       return NextResponse.json({
         success: false,
-        message: 'Ticket ID is required',
+        message: 'A valid ticket ID is required',
       }, { status: 400 });
     }
 
     // Update ticket via chat support API
-    const response = await fetch(`${CHAT_SUPPORT_API_URL}/support/tickets/${ticketId}`, {
+    const response = await fetch(`${CHAT_SUPPORT_API_URL}/support/tickets/${encodeURIComponent(ticketId)}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -177,4 +177,4 @@ export async function PUT(request: NextRequest) {
       message: 'Failed to update ticket',
     }, { status: 500 });
   }
-} 
+}

@@ -13,9 +13,12 @@ function updateEnvFile(widgetType) {
   try {
     let envContent = '';
     
-    // Read existing .env.local file
-    if (fs.existsSync(ENV_FILE)) {
+    // Read the current file if it exists. Avoid a separate existence check so
+    // another process cannot swap the file between check and read.
+    try {
       envContent = fs.readFileSync(ENV_FILE, 'utf8');
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
     }
     
     // Update or add the NEXT_PUBLIC_CHAT_WIDGET_TYPE variable
@@ -38,8 +41,10 @@ function updateEnvFile(widgetType) {
       updatedLines.push(`NEXT_PUBLIC_CHAT_WIDGET_TYPE=${widgetType}`);
     }
     
-    // Write back to file
-    fs.writeFileSync(ENV_FILE, updatedLines.join('\n'));
+    // Write atomically so readers never observe a partially-written env file.
+    const temporaryFile = `${ENV_FILE}.${process.pid}.tmp`;
+    fs.writeFileSync(temporaryFile, updatedLines.join('\n'), { mode: 0o600 });
+    fs.renameSync(temporaryFile, ENV_FILE);
     
     console.log(`✅ Chat widget type set to: ${widgetType}`);
     console.log(`📝 Updated ${ENV_FILE}`);
@@ -71,10 +76,12 @@ Current widget type: ${getCurrentWidgetType()}
 
 function getCurrentWidgetType() {
   try {
-    if (fs.existsSync(ENV_FILE)) {
+    try {
       const envContent = fs.readFileSync(ENV_FILE, 'utf8');
       const match = envContent.match(/NEXT_PUBLIC_CHAT_WIDGET_TYPE=(.+)/);
       return match ? match[1].trim() : 'standalone (default)';
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
     }
     return 'standalone (default)';
   } catch (error) {
@@ -98,4 +105,4 @@ if (!WIDGET_TYPES[widgetType]) {
   process.exit(1);
 }
 
-updateEnvFile(WIDGET_TYPES[widgetType]); 
+updateEnvFile(WIDGET_TYPES[widgetType]);

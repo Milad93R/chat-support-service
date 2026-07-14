@@ -108,9 +108,15 @@ export class ChatRoomService {
 
     const query: any = {};
     
-    if (filters.status) query.status = filters.status;
-    if (filters.clientEmail) query.clientEmail = filters.clientEmail;
-    if (filters.assignedAgentEmail) query.assignedAgentEmail = filters.assignedAgentEmail;
+    if (typeof filters.status === 'string' && Object.values(ChatRoomStatus).includes(filters.status)) {
+      query.status = { $eq: filters.status };
+    }
+    if (typeof filters.clientEmail === 'string') {
+      query.clientEmail = { $eq: filters.clientEmail.slice(0, 254) };
+    }
+    if (typeof filters.assignedAgentEmail === 'string') {
+      query.assignedAgentEmail = { $eq: filters.assignedAgentEmail.slice(0, 254) };
+    }
 
     const [rooms, total] = await Promise.all([
       this.chatRoomModel
@@ -312,8 +318,8 @@ export class ChatRoomService {
       status: { $in: [ChatRoomStatus.ACTIVE, ChatRoomStatus.WAITING] }
     };
 
-    if (agentEmail) {
-      query.assignedAgentEmail = agentEmail;
+    if (typeof agentEmail === 'string') {
+      query.assignedAgentEmail = { $eq: agentEmail.slice(0, 254) };
     }
 
     const rooms = await this.chatRoomModel.find(query).exec();
@@ -368,4 +374,4 @@ export class ChatRoomService {
       throw new NotFoundException(`Chat room with ID ${roomId} not found`);
     }
   }
-} 
+}

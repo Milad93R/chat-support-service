@@ -1,7 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Ticket, TicketDocument, TicketStatus } from './schemas/ticket.schema';
+import {
+  Ticket,
+  TicketCategory,
+  TicketDocument,
+  TicketPriority,
+  TicketStatus,
+} from './schemas/ticket.schema';
 import { Comment, CommentDocument } from './schemas/comment.schema';
 import { CreateTicketDto, CreateCommentDto, UpdateTicketDto } from './dto/create-ticket.dto';
 
@@ -108,15 +114,21 @@ export class SupportService {
   async getAllTickets(
     page = 1, 
     limit = 10, 
-    status?: string,
-    priority?: string,
-    category?: string
+    status?: TicketStatus,
+    priority?: TicketPriority,
+    category?: TicketCategory
   ): Promise<{ tickets: TicketDocument[], total: number }> {
     const filter: any = {};
     
-    if (status) filter.status = status;
-    if (priority) filter.priority = priority;
-    if (category) filter.category = category;
+    if (typeof status === 'string' && Object.values(TicketStatus).includes(status)) {
+      filter.status = { $eq: status };
+    }
+    if (typeof priority === 'string' && Object.values(TicketPriority).includes(priority)) {
+      filter.priority = { $eq: priority };
+    }
+    if (typeof category === 'string' && Object.values(TicketCategory).includes(category)) {
+      filter.category = { $eq: category };
+    }
 
     const skip = (page - 1) * limit;
     
@@ -136,12 +148,16 @@ export class SupportService {
 
   // Update ticket
   async updateTicket(ticketId: string, updateTicketDto: UpdateTicketDto): Promise<TicketDocument> {
+    const update: Record<string, unknown> = { lastUpdated: new Date() };
+    if (typeof updateTicketDto.subject === 'string') update.subject = updateTicketDto.subject;
+    if (updateTicketDto.category) update.category = updateTicketDto.category;
+    if (updateTicketDto.priority) update.priority = updateTicketDto.priority;
+    if (updateTicketDto.status) update.status = updateTicketDto.status;
+    if (typeof updateTicketDto.assignedTo === 'string') update.assignedTo = updateTicketDto.assignedTo;
+
     const ticket = await this.ticketModel.findOneAndUpdate(
       { ticketId },
-      { 
-        ...updateTicketDto,
-        lastUpdated: new Date()
-      },
+      { $set: update },
       { new: true }
     ).populate('comments');
 
@@ -204,4 +220,4 @@ export class SupportService {
       }
     };
   }
-} 
+}

@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { SupportService } from './support.service';
 import { CreateTicketDto, CreateCommentDto, UpdateTicketDto } from './dto/create-ticket.dto';
+import { TicketCategory, TicketPriority, TicketStatus } from './schemas/ticket.schema';
 
 @Controller('support')
 export class SupportController {
@@ -41,9 +42,9 @@ export class SupportController {
   async getAllTickets(
     @Query('page') page = 1,
     @Query('limit') limit = 10,
-    @Query('status') status?: string,
-    @Query('priority') priority?: string,
-    @Query('category') category?: string
+    @Query('status') status?: TicketStatus,
+    @Query('priority') priority?: TicketPriority,
+    @Query('category') category?: TicketCategory
   ) {
     try {
       const tickets = await this.supportService.getAllTickets(
@@ -179,4 +180,4 @@ export class SupportController {
       };
     }
   }
-} 
+}

@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsEnum, IsOptional, IsEmail, IsBoolean } from 'class-validator';
-import { TicketCategory, TicketPriority } from '../schemas/ticket.schema';
+import { TicketCategory, TicketPriority, TicketStatus } from '../schemas/ticket.schema';
 
 export class CreateTicketDto {
   @IsNotEmpty()
@@ -59,10 +59,10 @@ export class UpdateTicketDto {
   priority?: TicketPriority;
 
   @IsOptional()
-  @IsString()
-  status?: string;
+  @IsEnum(TicketStatus)
+  status?: TicketStatus;
 
   @IsOptional()
   @IsString()
   assignedTo?: string;
-} 
+}
